@@ -1,0 +1,23 @@
+We are obviously assuming some things with this code here as it was never meant to cover all forms of operator's stupidity.
+It was also never meant to be beautiful but of function, a kind of proof-of-concept on flac file size optimization.
+
+Simply, put all bat files in some subdir of flac, including the flac file to process itself.
+Run this script as so: script_name.bat "flacfile.flac" with CMD from that subdir.
+.wav extension should work too.
+
+It should fast check for best block size to use (88 attempts, 6 threads), parse that and run very slow flac encode with that block size.
+
+In case it fails to reduce the size, this may be a sign that you may need varying block size, a sign that flacout will win this race.
+
+After using flacout (if you decide to do so), make sure to copy tags with:
+metaflac --no-utf8-convert --export-tags-to=- "origfile" | metaflac --remove-all-tags --dont-use-padding --import-tags-from=- "flacoutfile"
+(if original has images inside, you may need to copy that too) then add seektable for the flacout's flac to be nice:
+metaflac --add-seekpoint=10s flacoutfile
+Edit the file with some tool like Xvi32 and alter the reference to be something like: "reference flacout block: vary"
+so you know the file was parsed with flacout and the block size is not of fixed size.
+Finally alter the date of the file manually if you want to keep the original file's date after processing.
+
+WARNING! We are working with lax subset here, for storage and somewhat still-common-sense compatibility.
+Use at your own risk, obviously. Edit to your liking.
+~~~~
+Mr_KrzYch00

@@ -1,0 +1,1 @@
+start /LOW ..\flac "%~1" -o "%~n1 [FINAL%2].flac" -Vmep -P 0 -r 0,15 -l 32 --lax -A subdivide_tukey^(8^) -A bartlett -A bartlett_hann -A blackman -A blackman_harris_4term_92db -A connes -A flattop -A gauss^(STDDEV^) -A hamming -A hann -A kaiser_bessel -A nuttall -A rectangle -A triangle -A welch -b %2
