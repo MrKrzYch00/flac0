@@ -65,6 +65,7 @@ set smallestfilename=NULL
 
 FOR %%a IN ("%dire%\[TEST*.flac") DO CALL :CHECK "%%a"
 set block=
+set smallestfilename=%smallestfilename:"=%
 set temp=%smallestfilename:~5,5%
 FOR /L %%a IN (0,1,4) DO CALL :EXTRACTBLOCK %%a
 echo Smallest: %smallestfilename% - %smallestfilesize%, best block: %block%
@@ -81,12 +82,12 @@ set /A curSize=%~z1
 IF %smallestfilesize% EQU -1 (
     IF NOT %curSize% EQU 0 (
         set /A smallestfilesize=%curSize%
-        set smallestfilename=%~n1
+        set smallestfilename="%~n1"
     )
 ) ELSE (
     IF %curSize% LEQ %smallestfilesize% (
         set /A smallestfilesize=%curSize%
-        set smallestfilename=%~n1
+        set smallestfilename="%~n1"
     )
 )
 GOTO :EOF
