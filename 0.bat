@@ -95,7 +95,7 @@ GOTO :EOF
 :EXTRACTBLOCK
 CALL SET "_testnum=%%temp:~%1,1%%"
 FOR /L %%a IN (0,1,9) DO (
-  IF %_testnum%==%%a GOTO :OK
+  IF "%_testnum%"=="%%a" GOTO :OK
 )
 GOTO :NOTOK
 :OK
